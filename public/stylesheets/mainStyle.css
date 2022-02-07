@@ -35,6 +35,7 @@ section.sidebar {
   justify-content: flex-start;
   align-items: center;
   background-color: #fff;
+  z-index: 1;
 }
 
 section.header {
@@ -47,6 +48,7 @@ section.header {
   flex-flow: row nowrap;
   justify-content: space-between;
   background-color: #fff;
+  z-index: 1;
 }
 
 section.header > div,
@@ -97,4 +99,14 @@ section a.icon div.icon-svg {
 section a.icon.wide div.icon-text {
   font-size: 15px;
   padding: 0 6px;
+}
+
+section.body {
+  position: relative;
+  top: 56px;
+  left: 72px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: calc(100vw - 84px);
+  height: calc(100vh - 68px);
 }
