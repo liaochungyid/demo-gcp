@@ -1,9 +1,11 @@
 let body
 let sidebarChildren
 let sidebarClassList = []
+let sectionBody
 
 window.onload = function() {
   body = document.querySelector('body')
+  sectionBody = document.querySelector('section.body')
   sidebarChildren = document.querySelector('.sidebar').children
 
   for (let i=0; i<sidebarChildren.length; i++) {
@@ -13,7 +15,7 @@ window.onload = function() {
   body.addEventListener('click', onBodyClick)
 }
 
-onBodyClick = function(event) {
+function onBodyClick(event) {
   event.preventDefault()
   event.stopPropagation()
   let clickTarget
@@ -38,6 +40,33 @@ onBodyClick = function(event) {
 
   // always remove sidebar wide class, if click any other place
   document.querySelector('section.sidebar').classList.remove('wide')
+
+  // login click action
+  clickTarget = isClickPathContain(event.path, 'login')
+
+  if (clickTarget) {
+    axios.get('/login')
+    .then((response) => {
+      if (response.status !== 200) return
+      sectionBody.innerHTML = response.data
+
+      const newScript = document.createElement('script')
+      newScript.src = '/javascripts/loginAndOut.js'
+      body.appendChild(newScript)
+    })
+    .catch(e => console.log(e))
+  }
+
+  // logout click action
+  clickTarget = isClickPathContain(event.path, 'logout')
+
+  if (clickTarget) {
+    axios.get('/logout')
+      .then((response) => {
+        if (response.status === 200) return window.location = '\\'
+      })
+      .catch(e => console.log(e))
+  }
 }
 
 function isClickPathContain(eventPath, className) {

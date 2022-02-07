@@ -87,6 +87,11 @@ section.wide {
   width: auto;
 }
 
+section.header .end a.logout .icon-text {
+  color: #393;
+  font-weight: 700;
+}
+
 section a.icon {
   width: 24px;
   padding: 16px 24px 14px;

@@ -25,7 +25,7 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 app.use((req, res, next) => {
-  res.locals.loginUser = req.user
+  res.locals.user = req.user
   res.locals.isAuthenticated = req.isAuthenticated()
   next()
 })

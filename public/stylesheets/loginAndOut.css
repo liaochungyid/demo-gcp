@@ -1,0 +1,33 @@
+section.body form {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 15px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+section.body form input {
+  background-color: #f9f9f9;
+  margin: 10px 0;
+  padding: 10px 6px;
+  border-radius: 5px;
+}
+
+section.body form button {
+  background-color: #065fd4;
+  border-radius: 5px;
+  padding: 10px 6px;
+  margin: 10px 6px;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+}
+
+section.body form button.warning {
+  background-color: #f00;
+}
