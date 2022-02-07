@@ -82,13 +82,32 @@ section.header .center .search-clear-button {
   background-color: #fff;
 }
 
-section.header a.wide {
+section.header a.wide,
+section.wide {
   width: auto;
 }
 
 section a.icon {
   width: 24px;
   padding: 16px 24px 14px;
+  position: relative;
+}
+
+section.wide a.icon {
+  width: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+section a.icon.active::before {
+  content: "";
+  background-color: #f00;
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 14px;
+  width: 6px;
 }
 
 section a.icon div.icon-svg {
@@ -99,6 +118,11 @@ section a.icon div.icon-svg {
 section a.icon.wide div.icon-text {
   font-size: 15px;
   padding: 0 6px;
+}
+
+section.wide a.icon div.icon-text {
+  font-size: 15px;
+  padding: 0 12px;
 }
 
 section.body {
