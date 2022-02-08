@@ -1,1 +1,40 @@
 <h1>HOME PAGE</h1>
+<h2>此 Demo 應用架設於GCP (Google Cloud Platform)，使用 Kubernates engine 與 Google SQL</h2>
+<ul>
+  <li>除本頁面(home page)外，左列其他內容須登入。</li>
+  <li>搜尋功能尚未完成。</li>
+  <li>登入前，頁面右上角登入功能可登入使用，或於左列選擇"非"home page外的連結，會導向login page。</li>
+  <li>登入後，頁面右上角會顯示user account，點擊左列連結即可看到資料，點擊右上角user account 即登出。</li>
+  <li>可使用下方初始設定帳號與密碼 (本 Demo 無註冊功能)。</li>
+</ul>
+<table>
+  <thead>
+    <tr>
+      <td>帳號</td>
+      <td>密碼</td>
+      <td>說明</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>root</td>
+      <td>root</td>
+      <td>最大權限，可看到資料庫該分類的所有Data</td>
+    </tr>
+    <tr>
+      <td>user1</td>
+      <td>user1</td>
+      <td>使用者權限，僅可看到自己的Data</td>
+    </tr>
+    <tr>
+      <td>user2</td>
+      <td>user2</td>
+      <td>使用者權限，僅可看到自己的Data</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">資料庫Table 僅有 User (3個user) 與 Data (3個data，包含browse, content, media在同一筆資料)，每筆data對應一個user。</td>
+    </tr>
+  </tfoot>
+</table>
