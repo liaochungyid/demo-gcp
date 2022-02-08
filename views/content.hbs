@@ -1,1 +1,39 @@
-<h1>i an content page</h1>
+<h1>I am content page</h1>
+<table>
+  <caption>data for {{user.account}}</caption>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each data}}
+  <tr>
+    <td>{{this.content}}</td>
+    <td>{{this.createdAt}}</td>
+    <td>{{this.updatedAt}}</td>
+  </tr>
+  {{/each}}
+  </tbody>
+</table>
+
+<style>
+  caption {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+  th {
+    background-color: #999;
+    padding: 10px;
+  }
+  td {
+    background-color: #ccc;
+    padding: 5px;
+  }
+  tr {
+    border-top: 1px solid #333;
+  }
+</style>

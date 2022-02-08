@@ -1,4 +1,4 @@
-const loginButton = document.querySelector('section.body form button')
+loginButton = document.querySelector('section.body form button')
 
 loginButton.addEventListener('click', function onLoginButtonClick(event) {
   if (loginButton.classList.contains('warning')) return
@@ -12,7 +12,7 @@ loginButton.addEventListener('click', function onLoginButtonClick(event) {
       }
     )
     .then(response => {
-      if (response.status === 200) return window.location = '\\'
+      if (response.status === 200) return window.location = '/'
     })
     .catch(e => {
       loginButton.innerText = '帳號或密碼錯誤！'

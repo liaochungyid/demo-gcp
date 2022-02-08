@@ -18,22 +18,19 @@ window.onload = function() {
 function onBodyClick(event) {
   event.preventDefault()
   event.stopPropagation()
-  let clickTarget
 
   // sidebar click action
-  clickTarget = sidebarClassList.filter((className) => {
+  let clickTarget = sidebarClassList.filter((className) => {
     return isClickPathContain(event.path, className)
   })[0]
 
   if (clickTarget) {
-    iconColorSwap(document.querySelector(`a.icon.${clickTarget} .icon-svg`), sidebarChildren)
+    iconColorSwapAndLoad(clickTarget, sidebarChildren)
     return
   }
 
-  // header menu click action
-  clickTarget = isClickPathContain(event.path, 'menu')
-
-  if (clickTarget) {
+  // header menu click action (add wide class)
+  if (isClickPathContain(event.path, 'menu')) {
     document.querySelector('section.sidebar').classList.toggle('wide')
     return
   }
@@ -42,30 +39,25 @@ function onBodyClick(event) {
   document.querySelector('section.sidebar').classList.remove('wide')
 
   // login click action
-  clickTarget = isClickPathContain(event.path, 'login')
-
-  if (clickTarget) {
-    axios.get('/login')
-    .then((response) => {
-      if (response.status !== 200) return
-      sectionBody.innerHTML = response.data
-
-      const newScript = document.createElement('script')
-      newScript.src = '/javascripts/loginAndOut.js'
-      body.appendChild(newScript)
-    })
-    .catch(e => console.log(e))
+  if (isClickPathContain(event.path, 'login')) {
+    axiosLogin()
+    return
   }
 
   // logout click action
-  clickTarget = isClickPathContain(event.path, 'logout')
-
-  if (clickTarget) {
-    axios.get('/logout')
+  if (isClickPathContain(event.path, 'logout')) {
+    axios.get('/logout', {
+      withCredentials: true,
+      validateStatus: function (status) {  return status < 500  }
+    })
       .then((response) => {
-        if (response.status === 200) return window.location = '\\'
+        console.log(response)
+        if (response.status < 400) return
+        return console.log('Invalid authenticated user to logout')
       })
       .catch(e => console.log(e))
+      .finally(() => window.location = '/')
+    return
   }
 }
 
@@ -79,7 +71,8 @@ function isClickPathContain(eventPath, className) {
 
 // to swap icon color by display:block and display:none under the same node
 // to swap side color bar by add/remove .active class
-function iconColorSwap(node, otherNodes) {
+function iconColorSwapAndLoad(clickTarget, otherNodes) {
+  const node = document.querySelector(`a.icon.${clickTarget} .icon-svg`)
   for (let i=0; i<otherNodes.length; i++) {
     otherNodes[i].classList.remove('active')
     const target = otherNodes[i].firstElementChild.firstElementChild
@@ -89,4 +82,28 @@ function iconColorSwap(node, otherNodes) {
   node.parentElement.classList.add('active')
   node.firstElementChild.style.display = 'none'
   node.firstElementChild.nextElementSibling.style.display = 'block'
+
+  if (clickTarget === 'home') return window.location = '/'
+  axios.get(`/api/${clickTarget}`, { withCredentials: true })
+    .then((response) => {
+      if (response.status !== 200) throw 'invalid user'
+      sectionBody.innerHTML = response.data
+    })
+    .catch(e => {
+      axiosLogin()
+    })
+}
+
+// axios for login
+function axiosLogin() {
+  axios.get('/login')
+    .then((response) => {
+      if (response.status !== 200) return
+      sectionBody.innerHTML = response.data
+
+      const newScript = document.createElement('script')
+      newScript.src = '/javascripts/loginAndOut.js'
+      body.appendChild(newScript)
+    })
+    .catch(e => console.log(e))
 }

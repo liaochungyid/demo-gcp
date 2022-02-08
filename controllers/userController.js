@@ -10,7 +10,7 @@ module.exports = {
 
   logout: (req, res) => {
     req.logout()
-    return res.redirect('/')
+    return res.status(200).send()
   },
   
   getLoginPage: (req, res) => {

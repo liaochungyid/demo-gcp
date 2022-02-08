@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/stylesheets/loginAndOut.css">
 <form action="/login" method="post">
-  <input type="text" placeholder="帳號" id="account">
-  <input type="text" placeholder="密碼" id="password">
+  <input type="text" placeholder="帳號" id="account" required pattern="[a-zA-Z0-9]+">
+  <input type="password" placeholder="密碼" id="password" required>
   <button type="button">登入</button>
 </form>
